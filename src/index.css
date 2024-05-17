@@ -4,7 +4,7 @@
 
 body {
   position: relative; /* Para que a pseudo-classe ::after possa ser posicionada em relação ao body */
-  background-image: url('./src/assets/capa02.jpg');
+  background-image: url('./public/capa02.jpg')
   background-size: cover;
   background-position: center;
 }
