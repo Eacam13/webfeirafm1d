@@ -7,7 +7,7 @@ import ProgressBar from '@ramonak/react-progress-bar';
 import { db } from '../../data/firebaseConnect';
 import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 
-type TeamProps = 'equipe1' | 'equipe2';
+type TeamProps = 'equipe1' | 'equipe2'
 
 interface EmojiItem {
     id: string;
@@ -22,7 +22,7 @@ export default function Main() {
     const [selectedEmojis, setSelectedEmojis] = useState<{ equipe1: string[], equipe2: string[] }>({ equipe1: [], equipe2: [] });
     const [modalPicker, setModalPicker] = useState<{ equipe1: boolean, equipe2: boolean }>({ equipe1: false, equipe2: false });
 
-    const maxEmojis = 30; // Defina o número máximo de emojis para 100% de progresso
+    const maxEmojis = 30 // Defina o número máximo de emojis para 100% de progresso
 
     useEffect(() => {
         // Função para buscar os dados do Firestore ao carregar a página
@@ -133,7 +133,7 @@ export default function Main() {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
 
