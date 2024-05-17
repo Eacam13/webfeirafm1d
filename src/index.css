@@ -2,11 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
- /* Para que a pseudo-classe ::after possa ser posicionada em relação ao body */
-  background-color: '#2563eb';
-  background-size: cover;
-  background-position: center;
-}
-
 
