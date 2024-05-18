@@ -8,7 +8,7 @@ import { db } from '../../data/firebaseConnect'
 import { collection, doc, getDoc, setDoc } from 'firebase/firestore'
 import Modal from '../modal'
 
-type TeamProps = 'equipe1' | 'equipe2';
+type TeamProps = 'equipe1' | 'equipe2'
 
 interface EmojiItem {
     id: string;
@@ -24,7 +24,8 @@ export default function Main() {
     const [modalPicker, setModalPicker] = useState<{ equipe1: boolean, equipe2: boolean }>({ equipe1: false, equipe2: false })
     const [modalVisible, setModalVisible] = useState(false)
     const [currentEmojis, setCurrentEmojis] = useState<string[]>([])
-    const maxEmojis = 30 // Defina o número máximo de emojis para 100% de progresso
+    const [teamSelected, setTeamSelected] = useState<TeamProps | null>(null)
+    const maxEmojis = 40 // Defina o número máximo de emojis para 100% de progresso
 
     useEffect(() => {
         // Função para buscar os dados do Firestore ao carregar a página
@@ -40,8 +41,8 @@ export default function Main() {
             }
         }
 
-        fetchEmojis();
-    }, []);
+        fetchEmojis()
+    }, [])
 
     async function saveEmojis(data: { equipe1: string[], equipe2: string[] }) {
         try {
@@ -68,7 +69,7 @@ export default function Main() {
         setModalPicker((prev) => ({
             ...prev,
             [team]: false,
-        }));
+        }))
     }
 
     function calculateProgress(team: TeamProps) {
@@ -78,18 +79,27 @@ export default function Main() {
 
     function colorProgressBar(progress: number) {
         if (progress < 30) return '#e03314'
-        if (progress >= 40 && progress < 60) return '#bcbe27';
+        if (progress >= 30 && progress < 60) return '#bcbe27';
         if (progress >= 60) return '#4bec1a'
     }
 
     function handleEmojis(team: TeamProps) {
         setCurrentEmojis(selectedEmojis[team])
         setModalVisible(true)
+        setTeamSelected(team)
+    }
+
+    function handleImageClick(team: TeamProps){
+        handleEmojis(team);
+        setModalPicker({
+            equipe1: false,
+            equipe2: false
+        });
     }
 
     return (
         <div className="flex flex-col">
-            <p className="text-center mt-8 mb-4 text-slate-100">
+            <p className="text-center mt-8 mb-4 text-white font-bold">
                 Deixe um emoji para a apresentação de cada equipe
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-evenly gap-4 mr-3 ml-3">
@@ -99,21 +109,21 @@ export default function Main() {
                     <img
                         src={Equipe1}
                         alt="Equipe 1"
-                        onClick={() => handleEmojis('equipe1')}
+                        onClick={() => handleImageClick('equipe1')}
                         className="w-90 h-80 sm:w-90 rounded-lg border-2 cursor-pointer border-blue-500 shadow-xl mr-2 ml-2"
                     />
                     <ProgressBar
                         className="w-96 mt-2 mb-2 bottom-1"
                         completed={calculateProgress('equipe1')}
-                        baseBgColor="#CCCCCC" // Cor de fundo
-                        bgColor={colorProgressBar(calculateProgress('equipe1'))} // Cor do preenchimento
+                        baseBgColor="#CCCCCC" 
+                        bgColor={colorProgressBar(calculateProgress('equipe1'))} 
                     />
                     <button
                         onClick={(e) => {
                             e.stopPropagation();
                             handlePicker('equipe1');
                         }}
-                        className="bg-green-100 w-32 h-8 rounded-lg mt-2"
+                        className="bg-teal-700 text-white font-semibold w-32 h-8 rounded-lg mt-2"
                     >
                         Escolher emoji
                     </button>
@@ -135,7 +145,7 @@ export default function Main() {
                     
                 >
                     <img
-                        onClick={() => handleEmojis('equipe2')}
+                        onClick={() => handleImageClick('equipe2')}
                         src={Equipe2}
                         alt="Equipe 2"
                         className="w-90 h-80 border-2 rounded-lg cursor-pointer border-blue-500 shadow-xl mr-2 ml-2"
@@ -148,10 +158,10 @@ export default function Main() {
                     />
                     <button
                         onClick={(e) => {
-                            e.stopPropagation();
-                            handlePicker('equipe2');
+                            e.stopPropagation()
+                            handlePicker('equipe2')
                         }}
-                        className="bg-green-100 w-32 h-8 rounded-lg mt-2"
+                        className="bg-teal-700 text-white font-semibold w-32 h-8 rounded-lg mt-2"
                     >
                         Escolher emoji
                     </button>
@@ -168,10 +178,11 @@ export default function Main() {
                     )}
                 </div>
             </div>
-            {modalVisible && (
+            {modalVisible && teamSelected && (
                 <Modal
                     emojis={currentEmojis}
                     onClose={() => setModalVisible(false)}
+                    teamName={teamSelected === 'equipe1' ? 'Equipe 1' : 'Equipe 2'}
                 />
             )}
         </div>

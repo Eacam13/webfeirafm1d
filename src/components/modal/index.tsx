@@ -3,12 +3,16 @@ import { IoIosCloseCircle } from "react-icons/io"
 interface ModalProps {
     emojis: string[]
     onClose: () => void
+    teamName: string
 }
 
-export default function Modal({ emojis, onClose }: ModalProps) {
+export default function Modal({ emojis, onClose, teamName}: ModalProps) {
+
     return (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+            
             <div className="bg-zinc-800 p-2 rounded-lg shadow-lg relative">
+                <p className="text-white font-semibold">{teamName}</p>
                 <button
                     className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
                     onClick={onClose}

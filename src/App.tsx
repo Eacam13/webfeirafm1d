@@ -1,12 +1,11 @@
 import Home from "./pages/home"
 
 function App() {
- 
 
   return (
-    <div 
+    <div
       className="w-full min-h-screen h-auto bg-cover bg-center"
-      style={{ backgroundImage: "url(/capa02.jpg)" }}
+      style={{ backgroundImage: "url(/background1d.png)" }}
     >
       <Home />
     </div>
