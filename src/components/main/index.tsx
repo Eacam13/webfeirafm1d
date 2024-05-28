@@ -161,7 +161,7 @@ export default function Main() {
                             e.stopPropagation()
                             handlePicker('equipe2')
                         }}
-                        className="bg-teal-700 text-white font-semibold w-32 h-8 rounded-lg mt-2"
+                        className="bg-teal-700 text-white font-semibold w-32 h-8 rounded-lg mt-2 mb-4"
                     >
                         Escolher emoji
                     </button>
